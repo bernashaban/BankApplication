@@ -1,2 +1,4 @@
-package application.model;public class CurrencyType {
+package application.model;
+
+public class CurrencyType {
 }

@@ -1,2 +1,4 @@
-package application.model;public class Employee {
+package application.model;
+
+public class Employee {
 }

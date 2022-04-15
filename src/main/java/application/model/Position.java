@@ -1,2 +1,4 @@
-package application.model;public class Position {
+package application.model;
+
+public class Position {
 }

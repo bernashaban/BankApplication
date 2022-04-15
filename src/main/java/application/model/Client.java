@@ -1,2 +1,4 @@
-package application.model;public class Client {
+package application.model;
+
+public class Client {
 }

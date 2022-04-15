@@ -1,2 +1,4 @@
-package application.model;public class Account {
+package application.model;
+
+public class Account {
 }

@@ -1,2 +1,4 @@
-package application.model;public class TransactionType {
+package application.model;
+
+public class TransactionType {
 }
