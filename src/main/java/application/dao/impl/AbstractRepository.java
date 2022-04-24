@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractRepository<K, V extends Identifiable<K>> implements Repository<K, V> {
+public abstract class AbstractRepository<K, V extends Identifiable<K>> implements Repository<K, V> {
 
     private Map<K, V> entities = new HashMap<>();
 
