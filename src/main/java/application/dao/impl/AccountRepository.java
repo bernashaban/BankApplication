@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AccountRepository extends AbstractRepository<Integer, Account> implements Repository<Integer, Account> {
+public class AccountRepository implements Repository<Integer, Account> {
     public static final String SELECT_ALL_ACCOUNTS = "select * from `account`;";
     public static final String INSERT_NEW_ACCOUNT = "insert into `account` (`account_number`, `interest`, `balance`, `client_id`, `currency_id`) values (?, ?, ?, ?, ?);";
     public static final String SELECT_ACCOUNT_BY_ID ="select * from `account` where idaccount = ?;";

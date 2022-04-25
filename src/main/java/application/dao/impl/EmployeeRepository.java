@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class EmployeeRepository extends AbstractRepository<Integer, Employee> implements Repository<Integer, Employee> {
+public class EmployeeRepository implements Repository<Integer, Employee> {
     public static final String SELECT_ALL_EMPLOYEES = "select * from `employee`;";
     public static final String INSERT_NEW_EMPLOYEE = "insert into `employee` (`employee_name`, `employee_phone`, `position_id`) values (?, ?, ?);";
     public static final String SELECT_EMPLOYEE_BY_ID ="select * from `employee` where idemployee = ?;";

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class
-ClientRepository extends AbstractRepository<Integer, Client> implements Repository<Integer, Client> {
+public class ClientRepository implements Repository<Integer, Client> {
     public static final String SELECT_ALL_CLIENTS = "select * from `client`;";
     public static final String INSERT_NEW_CLIENT = "insert into `client` (`client_name`, `client_egn`, `client_address`, `client_phone`) values (?, ?, ?, ?);";
     public static final String SELECT_CLIENT_BY_ID = "select * from `client` where idclient= ?;";

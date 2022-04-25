@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PositionRepository extends AbstractRepository<Integer, Position> implements Repository<Integer, Position> {
+public class PositionRepository implements Repository<Integer, Position> {
     public static final String SELECT_ALL_POSITIONS = "select * from `position`;";
     public static final String INSERT_NEW_POSITION = "insert into `position` (`position_name`) values (?);";
     public static final String SELECT_POSITION_BY_ID = "select * from `position` where idposition = ?;";

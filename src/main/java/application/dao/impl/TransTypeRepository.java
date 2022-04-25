@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TransTypeRepository extends AbstractRepository<Integer, TransactionType> implements Repository<Integer, TransactionType> {
+public class TransTypeRepository implements Repository<Integer, TransactionType> {
     public static final String SELECT_ALL_TRANS_TYPES = "select * from `transaction_type`;";
     public static final String INSERT_NEW_TRANS_TYPE = "insert into `transaction_type` (`trans_type`, `coef`) values (?, ?);";
     public static final String SELECT_TRANS_TYPE_BY_ID ="select * from `transaction_type` where idtransaction_type = ?;";

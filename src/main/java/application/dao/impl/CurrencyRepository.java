@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CurrencyRepository extends AbstractRepository<Integer, CurrencyType> implements Repository<Integer, CurrencyType> {
+public class CurrencyRepository implements Repository<Integer, CurrencyType> {
     public static final String SELECT_ALL_CURRENCY = "select * from `currency_type`;";
     public static final String INSERT_NEW_CURRENCY = "insert into `currency_type` (`currency_name`, `short_name`) values (?, ?);";
     public static final String SELECT_CURRENCY_BY_ID = "select * from `currency_type` where idcurrency = ?;";

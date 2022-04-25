@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TransactionRepository extends AbstractRepository<Integer, Transaction> implements Repository<Integer, Transaction> {
+public class TransactionRepository implements Repository<Integer, Transaction> {
     public static final String SELECT_ALL_TRANSACTIONS = "select * from `transaction`;";
     public static final String INSERT_NEW_TRANSACTION = "insert into `transaction` (`trans_type_id`, `employee_id`, `account_id`, `amount`, `trans_date`) values (?, ?, ?, ?, ?);";
     public static final String SELECT_TRANSACTION_BY_ID ="select * from `transaction` where idtransaction = ?;";
