@@ -3,9 +3,6 @@ package application.dao.impl;
 import application.dao.Repository;
 
 import application.exception.EntityPersistenceException;
-import application.model.Account;
-import application.model.Client;
-import application.model.CurrencyType;
 import application.model.TransactionType;
 
 import java.sql.Connection;
