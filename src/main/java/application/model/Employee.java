@@ -4,24 +4,43 @@ import application.dao.Identifiable;
 
 public class Employee implements Identifiable<Integer> {
     private Integer id;
+    private String username;
+    private String password;
     private String name;
     private String phone;
     private Position position;
 
-    public Employee() {
-    }
-
-    public Employee(String name, String phone, Position position) {
-        this.name = name;
-        this.phone = phone;
-        this.position = position;
-    }
-
-    public Employee(Integer id, String name, String phone, Position position) {
+    public Employee(Integer id, String username, String password, String name, String phone, Position position) {
         this.id = id;
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.phone = phone;
         this.position = position;
+    }
+
+    public Employee(String username, String password, String name, String phone, Position position) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.position = position;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
