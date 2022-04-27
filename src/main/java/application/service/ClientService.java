@@ -36,4 +36,12 @@ public class ClientService implements Service<Client> {
     public Client delete(Integer id) {
         return clientRepository.deleteById(id);
     }
+
+    public Client findClientByUsername(String username){
+        var client = clientRepository.findByUsername(username);
+        if (client != null) {
+            return client;
+        }
+        return null;
+    }
 }
