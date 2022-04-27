@@ -1,6 +1,7 @@
 package application.service;
 
 import application.dao.impl.EmployeeRepository;
+import application.model.Client;
 import application.model.Employee;
 
 import java.util.Collection;
@@ -35,5 +36,12 @@ public class EmployeeService implements Service<Employee>{
     @Override
     public Employee delete(Integer id) {
         return employeeRepository.deleteById(id);
+    }
+    public Employee findEmployeeByUsername(String username){
+        var client = employeeRepository.findByUsername(username);
+        if (client != null) {
+            return client;
+        }
+        return null;
     }
 }
