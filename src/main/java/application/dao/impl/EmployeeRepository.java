@@ -20,6 +20,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     public static final String SELECT_EMPLOYEE_BY_ID = "select * from `employee` where idemployee = ?;";
     public static final String UPDATE_EMPLOYEE_BY_ID = "update `employee` set `employee_username` = ?,`employee_password`=?, `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
     public static final String DELETE_EMPLOYEE_BY_ID = "delete from `employee` where idemployee = ?;";
+    public static final String SELECT_EMPLOYEE_BY_USERNAME = "select * from `employee` where username = ?;";
     private Connection connection;
     private PositionService positionService;
 
@@ -142,5 +143,22 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
             ));
         }
         return results;
+    }
+    public Employee findByUsername(String username) {
+        var employees = findAll();
+        try (var stmt = connection.prepareStatement(SELECT_EMPLOYEE_BY_USERNAME)) {
+            stmt.setString(1, username);
+            var rs = stmt.executeQuery();
+            for (Employee employee : employees) {
+                String currentUsername = employee.getUsername();
+                if(currentUsername.equals(username)){
+                    return employee;
+                }
+            }
+            return null;
+        } catch (SQLException ex) {
+            System.out.println("Error creating connection to DB");
+            throw new EntityPersistenceException("Error executing SQL query: " + SELECT_ALL_EMPLOYEES, ex);
+        }
     }
 }
