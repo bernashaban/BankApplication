@@ -4,6 +4,7 @@ import application.dao.Repository;
 
 import application.exception.EntityPersistenceException;
 import application.model.*;
+import application.service.PositionService;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,10 +17,11 @@ import java.util.List;
 public class EmployeeRepository implements Repository<Integer, Employee> {
     public static final String SELECT_ALL_EMPLOYEES = "select * from `employee`;";
     public static final String INSERT_NEW_EMPLOYEE = "insert into `employee` (`employee_name`, `employee_phone`, `position_id`) values (?, ?, ?);";
-    public static final String SELECT_EMPLOYEE_BY_ID ="select * from `employee` where idemployee = ?;";
-    public static final String UPDATE_EMPLOYEE_BY_ID="update `employee` set `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
-    public static final String DELETE_EMPLOYEE_BY_ID="delete from `employee` where idemployee = ?;";
+    public static final String SELECT_EMPLOYEE_BY_ID = "select * from `employee` where idemployee = ?;";
+    public static final String UPDATE_EMPLOYEE_BY_ID = "update `employee` set `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
+    public static final String DELETE_EMPLOYEE_BY_ID = "delete from `employee` where idemployee = ?;";
     private Connection connection;
+    private PositionService positionService;
 
     public EmployeeRepository(Connection connection) {
         this.connection = connection;
@@ -27,7 +29,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
 
     @Override
     public Collection<Employee> findAll() {
-        try(var stmt = connection.prepareStatement(SELECT_ALL_EMPLOYEES)) {
+        try (var stmt = connection.prepareStatement(SELECT_ALL_EMPLOYEES)) {
             var rs = stmt.executeQuery();
             return toEmployee(rs);
         } catch (SQLException ex) {
@@ -44,7 +46,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
             var rs = stmt.executeQuery();
             for (Employee employee : employees) {
                 Integer currentId = employee.getId();
-                if(currentId.equals(id)){
+                if (currentId.equals(id)) {
                     return employee;
                 }
             }
@@ -88,7 +90,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     }
 
     @Override
-    public Employee update(Employee entity)  {
+    public Employee update(Employee entity) {
         var old = findById(entity.getId());
         try {
             var stmt = connection.prepareStatement(UPDATE_EMPLOYEE_BY_ID);
@@ -108,7 +110,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     }
 
     @Override
-    public Employee deleteById(Integer id)  {
+    public Employee deleteById(Integer id) {
         var account = findById(id);
         try (var stmt = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID)) {
             stmt.setInt(1, id);
@@ -130,8 +132,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
                     rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
-                    new Position()
-                    //positionService.findById(rs.getInt(4)) //position_id
+                    positionService.getById(rs.getInt(4))
             ));
         }
         return results;
