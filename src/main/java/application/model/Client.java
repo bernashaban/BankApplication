@@ -2,26 +2,28 @@ package application.model;
 
 import application.dao.Identifiable;
 
-public class Client implements Identifiable<Integer> {
+public class Client  implements Identifiable<Integer> {
     private Integer id;
+    private String username;
+    private String password;
     private String name;
     private String egn;
     private String address;
     private String phone;
 
-    public Client(int id) {
+    public Client(Integer id, String username, String password, String name, String egn, String address, String phone) {
         this.id = id;
-    }
-
-    public Client(String name, String egn, String address, String phone) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.egn = egn;
         this.address = address;
         this.phone = phone;
     }
 
-    public Client(int id, String name, String egn, String address, String phone) {
-        this.id = id;
+    public Client(String username, String password, String name, String egn, String address, String phone) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.egn = egn;
         this.address = address;
@@ -36,6 +38,22 @@ public class Client implements Identifiable<Integer> {
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
