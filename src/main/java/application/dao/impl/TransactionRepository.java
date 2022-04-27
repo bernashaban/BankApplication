@@ -4,6 +4,9 @@ import application.dao.Repository;
 
 import application.exception.EntityPersistenceException;
 import application.model.*;
+import application.service.AccountService;
+import application.service.EmployeeService;
+import application.service.TransTypeService;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,10 +19,13 @@ import java.util.List;
 public class TransactionRepository implements Repository<Integer, Transaction> {
     public static final String SELECT_ALL_TRANSACTIONS = "select * from `transaction`;";
     public static final String INSERT_NEW_TRANSACTION = "insert into `transaction` (`trans_type_id`, `employee_id`, `account_id`, `amount`, `trans_date`) values (?, ?, ?, ?, ?);";
-    public static final String SELECT_TRANSACTION_BY_ID ="select * from `transaction` where idtransaction = ?;";
-    public static final String UPDATE_TRANSACTION_BY_ID="update `transaction` set `trans_type_id` = ?, `employee_id` = ?, `account_id` = ?, `amount` = ?, `trans_date` = ? where idtransaction = ?;";
-    public static final String DELETE_TRANSACTION_BY_ID="delete from `transaction` where idtransaction = ?;";
+    public static final String SELECT_TRANSACTION_BY_ID = "select * from `transaction` where idtransaction = ?;";
+    public static final String UPDATE_TRANSACTION_BY_ID = "update `transaction` set `trans_type_id` = ?, `employee_id` = ?, `account_id` = ?, `amount` = ?, `trans_date` = ? where idtransaction = ?;";
+    public static final String DELETE_TRANSACTION_BY_ID = "delete from `transaction` where idtransaction = ?;";
     private Connection connection;
+    private TransTypeService transTypeService;
+    private EmployeeService employeeService;
+    private AccountService accountService;
 
     public TransactionRepository(Connection connection) {
         this.connection = connection;
@@ -27,7 +33,7 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
 
     @Override
     public Collection<Transaction> findAll() {
-        try(var stmt = connection.prepareStatement(SELECT_ALL_TRANSACTIONS)) {
+        try (var stmt = connection.prepareStatement(SELECT_ALL_TRANSACTIONS)) {
             var rs = stmt.executeQuery();
             return toTransaction(rs);
         } catch (SQLException ex) {
@@ -44,7 +50,7 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
             var rs = stmt.executeQuery();
             for (Transaction transaction : transactions) {
                 Integer currentId = transaction.getId();
-                if(currentId.equals(id)){
+                if (currentId.equals(id)) {
                     return transaction;
                 }
             }
@@ -90,7 +96,7 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
     }
 
     @Override
-    public Transaction update(Transaction entity)  {
+    public Transaction update(Transaction entity) {
         var old = findById(entity.getId());
         try {
             var stmt = connection.prepareStatement(UPDATE_TRANSACTION_BY_ID);
@@ -113,7 +119,7 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
     }
 
     @Override
-    public Transaction deleteById(Integer id)  {
+    public Transaction deleteById(Integer id) {
         var transaction = findById(id);
         try (var stmt = connection.prepareStatement(DELETE_TRANSACTION_BY_ID)) {
             stmt.setInt(1, id);
@@ -134,9 +140,9 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
         while (rs.next()) {
             results.add(new Transaction(
                     rs.getInt(1),
-                    new TransactionType(),//transTypeService.findById(rs.getInt(2))
-                    new Employee(),//employeeService.findById(rs.getInt(3))
-                    new Account(),//accountService.findById(rs.getInt(4))
+                    transTypeService.getById(rs.getInt(2)),
+                    employeeService.getById(rs.getInt(3)),
+                    accountService.getById(rs.getInt(4)),
                     rs.getDouble(5),
                     rs.getTimestamp(6)
             ));
