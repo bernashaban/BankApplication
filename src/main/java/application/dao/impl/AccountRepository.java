@@ -5,6 +5,8 @@ import application.exception.EntityPersistenceException;
 import application.model.Account;
 import application.model.Client;
 import application.model.CurrencyType;
+import application.service.ClientService;
+import application.service.CurrencyService;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,6 +23,8 @@ public class AccountRepository implements Repository<Integer, Account> {
     public static final String UPDATE_ACCOUNT_BY_ID="update `account` set `account_number` = ?, `interest` = ?, `balance` = ?, `client_id` = ?, `currency_id` = ? where idaccount = ?;";
     public static final String DELETE_ACCOUNT_BY_ID="delete from `account` where idaccount = ?;";
     private Connection connection;
+    private ClientService clientService;
+    private CurrencyService currencyService;
 
     public AccountRepository(Connection connection) {
         this.connection = connection;
@@ -135,15 +139,11 @@ public class AccountRepository implements Repository<Integer, Account> {
         while (rs.next()) {
             results.add(new Account(
                     rs.getInt(1),
-                    rs.getInt(2),//account_number
-                    rs.getDouble(3),//interest
-                    rs.getDouble(4),//balance
-                    new Client(rs.getInt(5)),
-                    new CurrencyType()
-                    //clientService.findById(rs.getInt(5))  //client_id
-                    //currencyService.findById(rs.getInt(6)) //currency_id
-                    //userRepository.findById(rs.getLong(2)),
-
+                    rs.getInt(2),
+                    rs.getDouble(3),
+                    rs.getDouble(4),
+                    clientService.getById(rs.getInt(5)),
+                    currencyService.getById(rs.getInt(6))
             ));
         }
         return results;
