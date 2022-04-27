@@ -16,9 +16,9 @@ import java.util.List;
 
 public class EmployeeRepository implements Repository<Integer, Employee> {
     public static final String SELECT_ALL_EMPLOYEES = "select * from `employee`;";
-    public static final String INSERT_NEW_EMPLOYEE = "insert into `employee` (`employee_name`, `employee_phone`, `position_id`) values (?, ?, ?);";
+    public static final String INSERT_NEW_EMPLOYEE = "insert into `employee` (`employee_username`,`employee_password`,`employee_name`, `employee_phone`, `position_id`) values (?, ?, ?, ?, ?);";
     public static final String SELECT_EMPLOYEE_BY_ID = "select * from `employee` where idemployee = ?;";
-    public static final String UPDATE_EMPLOYEE_BY_ID = "update `employee` set `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
+    public static final String UPDATE_EMPLOYEE_BY_ID = "update `employee` set `employee_username` = ?,`employee_password`=?, `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
     public static final String DELETE_EMPLOYEE_BY_ID = "delete from `employee` where idemployee = ?;";
     private Connection connection;
     private PositionService positionService;
@@ -60,9 +60,11 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     @Override
     public Employee create(Employee entity) {
         try (var stmt = connection.prepareStatement(INSERT_NEW_EMPLOYEE, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, entity.getName());
-            stmt.setString(2, entity.getPhone());
-            stmt.setInt(3, entity.getPosition().getId());
+            stmt.setString(1, entity.getUsername());
+            stmt.setString(2, entity.getPassword());
+            stmt.setString(3, entity.getName());
+            stmt.setString(4, entity.getPhone());
+            stmt.setInt(5, entity.getPosition().getId());
             connection.setAutoCommit(false);
             var affectedRows = stmt.executeUpdate();
             connection.commit();
@@ -94,10 +96,12 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
         var old = findById(entity.getId());
         try {
             var stmt = connection.prepareStatement(UPDATE_EMPLOYEE_BY_ID);
-            stmt.setString(1, entity.getName());
-            stmt.setString(2, entity.getPhone());
-            stmt.setInt(3, entity.getPosition().getId());
-            stmt.setInt(4, old.getId());
+            stmt.setString(1, entity.getUsername());
+            stmt.setString(2, entity.getPassword());
+            stmt.setString(3, entity.getName());
+            stmt.setString(4, entity.getPhone());
+            stmt.setInt(5, entity.getPosition().getId());
+            stmt.setInt(6, old.getId());
             connection.setAutoCommit(false);
             var affectedRows = stmt.executeUpdate();
             connection.commit();
@@ -132,7 +136,9 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
                     rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
-                    positionService.getById(rs.getInt(4))
+                    rs.getString(4),
+                    rs.getString(5),
+                    positionService.getById(rs.getInt(6))
             ));
         }
         return results;
