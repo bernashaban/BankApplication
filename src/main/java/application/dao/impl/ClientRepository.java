@@ -16,9 +16,9 @@ import java.util.List;
 
 public class ClientRepository implements Repository<Integer, Client> {
     public static final String SELECT_ALL_CLIENTS = "select * from `client`;";
-    public static final String INSERT_NEW_CLIENT = "insert into `client` (`client_name`, `client_egn`, `client_address`, `client_phone`) values (?, ?, ?, ?);";
+    public static final String INSERT_NEW_CLIENT = "insert into `client` (`client_username`,`client_password`,`client_name`, `client_egn`, `client_address`, `client_phone`) values (?, ?, ?, ?, ?, ?);";
     public static final String SELECT_CLIENT_BY_ID = "select * from `client` where idclient= ?;";
-    public static final String UPDATE_CLIENT_BY_ID = "update `client` set `client_name` = ?, `client_egn` = ?, `client_address` = ?, `client_phone` = ? where idclient = ?;";
+    public static final String UPDATE_CLIENT_BY_ID = "update `client` set `client_username`=?, `client_password`=?, `client_name` = ?, `client_egn` = ?, `client_address` = ?, `client_phone` = ? where idclient = ?;";
     public static final String DELETE_CLIENT_BY_ID = "delete from `client` where idclient = ?;";
     private Connection connection;
 
@@ -59,10 +59,12 @@ public class ClientRepository implements Repository<Integer, Client> {
     @Override
     public Client create(Client entity) {
         try (var stmt = connection.prepareStatement(INSERT_NEW_CLIENT, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, entity.getName());
-            stmt.setString(2, entity.getEgn());
-            stmt.setString(3, entity.getAddress());
-            stmt.setString(4, entity.getPhone());
+            stmt.setString(1, entity.getUsername());
+            stmt.setString(2, entity.getPassword());
+            stmt.setString(3, entity.getName());
+            stmt.setString(4, entity.getEgn());
+            stmt.setString(5, entity.getAddress());
+            stmt.setString(6, entity.getPhone());
             connection.setAutoCommit(false);
             var affectedRows = stmt.executeUpdate();
             connection.commit();
@@ -94,12 +96,13 @@ public class ClientRepository implements Repository<Integer, Client> {
         var old = findById(entity.getId());
         try {
             var stmt = connection.prepareStatement(UPDATE_CLIENT_BY_ID);
-            stmt.setString(1, entity.getName());
-            stmt.setString(2, entity.getEgn());
-            stmt.setString(3, entity.getAddress());
-            stmt.setString(4, entity.getPhone());
-            stmt.setInt(5, old.getId());
-
+            stmt.setString(1, entity.getUsername());
+            stmt.setString(2, entity.getPassword());
+            stmt.setString(3, entity.getName());
+            stmt.setString(4, entity.getEgn());
+            stmt.setString(5, entity.getAddress());
+            stmt.setString(6, entity.getPhone());
+            stmt.setInt(7, old.getId());
             connection.setAutoCommit(false);
             var affectedRows = stmt.executeUpdate();
             connection.commit();
@@ -136,7 +139,9 @@ public class ClientRepository implements Repository<Integer, Client> {
                     rs.getString(2),
                     rs.getString(3),
                     rs.getString(4),
-                    rs.getString(5)
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7)
             ));
         }
         return results;
