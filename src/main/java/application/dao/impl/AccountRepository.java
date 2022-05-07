@@ -19,20 +19,22 @@ import java.util.List;
 public class AccountRepository implements Repository<Integer, Account> {
     public static final String SELECT_ALL_ACCOUNTS = "select * from `account`;";
     public static final String INSERT_NEW_ACCOUNT = "insert into `account` (`account_number`, `interest`, `balance`, `client_id`, `currency_id`) values (?, ?, ?, ?, ?);";
-    public static final String SELECT_ACCOUNT_BY_ID ="select * from `account` where idaccount = ?;";
-    public static final String UPDATE_ACCOUNT_BY_ID="update `account` set `account_number` = ?, `interest` = ?, `balance` = ?, `client_id` = ?, `currency_id` = ? where idaccount = ?;";
-    public static final String DELETE_ACCOUNT_BY_ID="delete from `account` where idaccount = ?;";
+    public static final String SELECT_ACCOUNT_BY_ID = "select * from `account` where idaccount = ?;";
+    public static final String UPDATE_ACCOUNT_BY_ID = "update `account` set `account_number` = ?, `interest` = ?, `balance` = ?, `client_id` = ?, `currency_id` = ? where idaccount = ?;";
+    public static final String DELETE_ACCOUNT_BY_ID = "delete from `account` where idaccount = ?;";
     private Connection connection;
     private ClientService clientService;
     private CurrencyService currencyService;
 
-    public AccountRepository(Connection connection) {
+    public AccountRepository(Connection connection, ClientService clientService, CurrencyService currencyService) {
         this.connection = connection;
+        this.clientService = clientService;
+        this.currencyService = currencyService;
     }
 
     @Override
     public Collection<Account> findAll() {
-        try(var stmt = connection.prepareStatement(SELECT_ALL_ACCOUNTS)) {
+        try (var stmt = connection.prepareStatement(SELECT_ALL_ACCOUNTS)) {
             var rs = stmt.executeQuery();
             return toAccount(rs);
         } catch (SQLException ex) {
@@ -49,7 +51,7 @@ public class AccountRepository implements Repository<Integer, Account> {
             var rs = stmt.executeQuery();
             for (Account account : accounts) {
                 Integer currentId = account.getId();
-                if(currentId.equals(id)){
+                if (currentId.equals(id)) {
                     return account;
                 }
             }
@@ -95,7 +97,7 @@ public class AccountRepository implements Repository<Integer, Account> {
     }
 
     @Override
-    public Account update(Account entity)  {
+    public Account update(Account entity) {
         var old = findById(entity.getId());
         try {
             var stmt = connection.prepareStatement(UPDATE_ACCOUNT_BY_ID);
@@ -118,7 +120,7 @@ public class AccountRepository implements Repository<Integer, Account> {
     }
 
     @Override
-    public Account deleteById(Integer id)  {
+    public Account deleteById(Integer id) {
         var account = findById(id);
         try (var stmt = connection.prepareStatement(DELETE_ACCOUNT_BY_ID)) {
             stmt.setInt(1, id);
@@ -148,4 +150,32 @@ public class AccountRepository implements Repository<Integer, Account> {
         }
         return results;
     }
+
+    public Collection<Account> findClientAccounts(Client client) {
+        var accounts = findAll();
+        Collection<Account> clientAccounts = new ArrayList<>();
+        for (Account account : accounts) {
+            Integer currentClientId = account.getClient().getId();
+            if (currentClientId.equals(client.getId())) {
+                clientAccounts.add(account);
+            }
+        }
+        return clientAccounts;
+    }
+
+    public Collection<Account> findClientAccountsByCurrency(Client client, CurrencyType currencyType) {
+        var accounts = findAll();
+        Collection<Account> clientAccounts = new ArrayList<>();
+        for (Account account : accounts) {
+            Integer currentClientId = account.getClient().getId();
+            Integer currentCurrencyId = account.getCurrencyType().getId();
+            if (currentClientId.equals(client.getId())) {
+                if (currentCurrencyId.equals(currencyType.getId())) {
+                    clientAccounts.add(account);
+                }
+            }
+        }
+        return clientAccounts;
+    }
+
 }
