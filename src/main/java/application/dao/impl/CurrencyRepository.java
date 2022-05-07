@@ -2,6 +2,8 @@ package application.dao.impl;
 
 import application.dao.Repository;
 import application.exception.EntityPersistenceException;
+import application.model.Account;
+import application.model.Client;
 import application.model.CurrencyType;
 
 import java.sql.Connection;
@@ -132,4 +134,17 @@ public class CurrencyRepository implements Repository<Integer, CurrencyType> {
         }
         return results;
     }
+
+    public CurrencyType findCurrencyByShortName(String shortName) {
+        var currencyTypeCollection = findAll();
+        for (CurrencyType currencyType : currencyTypeCollection) {
+
+            if (currencyType.getShortName().equals(shortName)) {
+                return currencyType;
+            }
+        }
+        return null;
+    }
+
+
 }
