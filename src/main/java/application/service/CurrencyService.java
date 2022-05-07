@@ -1,6 +1,8 @@
 package application.service;
 
 import application.dao.impl.CurrencyRepository;
+import application.model.Account;
+import application.model.Client;
 import application.model.CurrencyType;
 
 import java.util.Collection;
@@ -35,5 +37,9 @@ public class CurrencyService implements Service<CurrencyType> {
     @Override
     public CurrencyType delete(Integer id) {
         return currencyRepository.deleteById(id);
+    }
+
+    public CurrencyType getCurrencyByShortName(String shortName) {
+        return currencyRepository.findCurrencyByShortName(shortName);
     }
 }
