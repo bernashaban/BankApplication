@@ -27,8 +27,11 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
     private EmployeeService employeeService;
     private AccountService accountService;
 
-    public TransactionRepository(Connection connection) {
+    public TransactionRepository(Connection connection, TransTypeService transTypeService, EmployeeService employeeService, AccountService accountService) {
         this.connection = connection;
+        this.transTypeService = transTypeService;
+        this.employeeService = employeeService;
+        this.accountService = accountService;
     }
 
     @Override
@@ -148,5 +151,18 @@ public class TransactionRepository implements Repository<Integer, Transaction> {
             ));
         }
         return results;
+    }
+
+    public List<Transaction> getAllTransactionByClient(Client client){
+        var transactions = findAll();
+        var clientsTransactions = new ArrayList<Transaction>();
+        int clientId = client.getId();
+        for (Transaction transaction : transactions) {
+            int currentClientId = transaction.getAccount().getClient().getId();
+            if(currentClientId==clientId){
+                clientsTransactions.add(transaction);
+            }
+        }
+        return clientsTransactions;
     }
 }
