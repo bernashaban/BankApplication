@@ -1,8 +1,9 @@
-package application.view;
+package application.view.logIn;
 
 
 import application.model.Client;
 import application.service.ClientService;
+import application.view.EntityDialog;
 
 import java.util.Scanner;
 

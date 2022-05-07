@@ -1,14 +1,15 @@
-package application.view;
+package application.view.logIn;
 
 import application.exception.NonExistingEntityException;
 
 import application.model.Client;
 import application.model.Employee;
 import application.service.EmployeeService;
+import application.view.EntityDialog;
 
 import java.util.Scanner;
 
-public class LogInDialogEmployee implements EntityDialog<Employee>{
+public class LogInDialogEmployee implements EntityDialog<Employee> {
     public static Scanner scanner = new Scanner(System.in);
     public EmployeeService employeeService;
 
