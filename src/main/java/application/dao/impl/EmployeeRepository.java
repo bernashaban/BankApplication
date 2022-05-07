@@ -24,8 +24,9 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     private Connection connection;
     private PositionService positionService;
 
-    public EmployeeRepository(Connection connection) {
+    public EmployeeRepository(Connection connection, PositionService positionService) {
         this.connection = connection;
+        this.positionService = positionService;
     }
 
     @Override
