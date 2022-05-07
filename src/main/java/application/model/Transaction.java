@@ -4,7 +4,7 @@ import application.dao.Identifiable;
 
 import java.sql.Timestamp;
 
-public class Transaction implements Identifiable<Integer> {
+public class Transaction implements Identifiable<Integer> ,Comparable<Transaction>{
     private Integer id;
     private TransactionType type;
     private Employee employee;
@@ -92,5 +92,10 @@ public class Transaction implements Identifiable<Integer> {
                 ", amount=" + amount +
                 ", transactionDate=" + transactionDate +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Transaction other) {
+       return this.getTransactionDate().compareTo(other.getTransactionDate());
     }
 }
