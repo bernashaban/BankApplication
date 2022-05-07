@@ -49,16 +49,6 @@ public class UpdateDataDialog implements EntityDialog<Client> {
                 client.setName(answer);
             }
         }
-        client.setEgn(null);
-        while (client.getUsername() == null) {
-            System.out.println("EGN: ");
-            var answer = scanner.nextLine();
-            if (answer.length() != 10) {
-                System.out.println("Error: EGN should be 10 characters long.");
-            } else {
-                client.setEgn(answer);
-            }
-        }
         client.setAddress(null);
         while (client.getAddress() == null) {
             System.out.println("Address: ");
@@ -74,7 +64,7 @@ public class UpdateDataDialog implements EntityDialog<Client> {
             System.out.println("Phone: ");
             var answer = scanner.nextLine();
             if (answer.length() != 10) {
-                System.out.println("Error: Username should be 10 characters long.");
+                System.out.println("Error: Phone should be 10 characters long.");
             } else {
                 client.setPhone(answer);
             }
