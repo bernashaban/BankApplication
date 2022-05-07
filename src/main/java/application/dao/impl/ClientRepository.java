@@ -20,7 +20,6 @@ public class ClientRepository implements Repository<Integer, Client> {
     public static final String SELECT_CLIENT_BY_ID = "select * from `client` where idclient= ?;";
     public static final String UPDATE_CLIENT_BY_ID = "update `client` set `client_username`=?, `client_password`=?, `client_name` = ?, `client_egn` = ?, `client_address` = ?, `client_phone` = ? where idclient = ?;";
     public static final String DELETE_CLIENT_BY_ID = "delete from `client` where idclient = ?;";
-    public static final String SELECT_CLIENT_BY_USERNAME = "select * from `client` where username = ?;";
     private Connection connection;
 
     public ClientRepository(Connection connection) {
@@ -149,9 +148,6 @@ public class ClientRepository implements Repository<Integer, Client> {
     }
     public Client findByUsername(String username) {
         var clients = findAll();
-        try (var stmt = connection.prepareStatement(SELECT_CLIENT_BY_USERNAME)) {
-            stmt.setString(1, username);
-            var rs = stmt.executeQuery();
             for (Client client : clients) {
                 String currentUsername = client.getUsername();
                 if(currentUsername.equals(username)){
@@ -159,9 +155,5 @@ public class ClientRepository implements Repository<Integer, Client> {
                 }
             }
             return null;
-        } catch (SQLException ex) {
-            System.out.println("Error creating connection to DB");
-            throw new EntityPersistenceException("Error executing SQL query: " + SELECT_ALL_CLIENTS, ex);
-        }
     }
 }
