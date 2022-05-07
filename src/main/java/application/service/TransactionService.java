@@ -1,9 +1,12 @@
 package application.service;
 
 import application.dao.impl.TransactionRepository;
+import application.model.Client;
 import application.model.Transaction;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class TransactionService implements Service<Transaction> {
     private final TransactionRepository transactionRepository;
@@ -35,5 +38,9 @@ public class TransactionService implements Service<Transaction> {
     @Override
     public Transaction delete(Integer id) {
         return transactionRepository.deleteById(id);
+    }
+
+    public List<Transaction> getAllTransactionByClient(Client client){
+        return transactionRepository.getAllTransactionByClient(client);
     }
 }
