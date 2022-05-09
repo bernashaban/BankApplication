@@ -79,11 +79,9 @@ public class Employee implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", position=" + position +
-                '}';
+        return "Служител ID: " + id + "\n"+
+                "Име: " + name + "\n"+
+                "Телефон: " + phone + "\n"+
+                "Позиция: " + position.getName()+ "\n";
     }
 }

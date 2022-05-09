@@ -84,14 +84,12 @@ public class Transaction implements Identifiable<Integer> ,Comparable<Transactio
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", type=" + type +
-                ", employee=" + employee +
-                ", account=" + account +
-                ", amount=" + amount +
-                ", transactionDate=" + transactionDate +
-                '}';
+        return "Транзакция ID: " + id + "\n"+
+                "Тип: " + type.getTypeName() + "\n"+
+                "Служител: " + employee.getName() + "\n"+
+                "Сметка: " + account.getAccountNum() + "\n"+
+                "Сума: " + amount + "\n"+
+                "Дата: " + transactionDate+ "\n";
     }
 
     @Override

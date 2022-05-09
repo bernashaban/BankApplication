@@ -38,9 +38,7 @@ public class Position implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Позиция ID: " + id + "\n"+
+                "Име: " + name + "\n";
     }
 }

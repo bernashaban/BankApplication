@@ -83,14 +83,12 @@ public class Account implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", accountNum=" + accountNum +
-                ", interest=" + interest +
-                ", balance=" + balance +
-                ", client=" + client +
-                ", currencyType=" + currencyType +
-                '}';
+        return "Сметка ID: " + id + "\n"+
+                "Номер: " + accountNum +"\n"+
+                "Лихва: " + interest +"\n"+
+                "Баланс: " + balance +"\n"+
+                "Клиент: " + client.getName() + "\n"+
+                "Валута: " + currencyType.getShortName() + "\n";
     }
 
 

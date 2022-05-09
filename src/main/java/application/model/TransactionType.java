@@ -49,10 +49,8 @@ public class TransactionType implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "TransactionType{" +
-                "id=" + id +
-                ", typeName='" + typeName + '\'' +
-                ", coefficient=" + coefficient +
-                '}';
+        return "Тип на тракзакция ID: " + id + "\n"+
+                "Име: " + typeName + "\n"+
+                "Коефициент" + coefficient + "\n";
     }
 }

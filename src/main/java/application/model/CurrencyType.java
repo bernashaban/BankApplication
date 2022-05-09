@@ -49,10 +49,8 @@ public class CurrencyType implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "CurrencyType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", shortName='" + shortName + '\'' +
-                '}';
+        return "Валута ID: " + id + "\n"+
+                "Име: " + name+ "\n"+
+                "Кратко име: " + shortName + "\n";
     }
 }

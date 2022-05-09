@@ -90,12 +90,10 @@ public class Client  implements Identifiable<Integer> {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", egn='" + egn + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        return "Клиент ID: " + id +"\n"+
+                "Име: " + name + "\n"+
+                "ЕГН: " + egn + "\n"+
+                "Адрес: " + address + "\n"+
+                "Телефон: " + phone + "\n";
     }
 }
