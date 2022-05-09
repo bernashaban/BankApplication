@@ -16,14 +16,16 @@ public class LogInController {
     private TransactionService transactionService;
     private CurrencyService currencyService;
     private TransTypeService transTypeService;
+    private PositionService positionService;
 
-    public LogInController(ClientService clientService, EmployeeService employeeService, AccountService accountService, TransactionService transactionService, CurrencyService currencyService, TransTypeService transTypeService) {
+    public LogInController(ClientService clientService, EmployeeService employeeService, AccountService accountService, TransactionService transactionService, CurrencyService currencyService, TransTypeService transTypeService, PositionService positionService) {
         this.clientService = clientService;
         this.employeeService = employeeService;
         this.accountService = accountService;
         this.transactionService = transactionService;
         this.currencyService = currencyService;
         this.transTypeService = transTypeService;
+        this.positionService = positionService;
     }
 
     public void init() {
@@ -43,7 +45,7 @@ public class LogInController {
                     if (user == null) {
                         System.out.println("Login failed. Try again.");
                     } else {
-                        EmployeeController employeeController = new EmployeeController(user, employeeService, clientService, accountService, transactionService);
+                        EmployeeController employeeController = new EmployeeController(user, employeeService, clientService, accountService,transactionService, currencyService, transTypeService, positionService);
                         employeeController.init();
                     }
                     return "Logged in successfully.";
