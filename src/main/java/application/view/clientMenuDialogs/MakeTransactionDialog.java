@@ -39,18 +39,18 @@ public class MakeTransactionDialog implements EntityDialog<Transaction> {
         var transaction = new Transaction();
         Account account = null;
         while (transaction.getAccount() == null) {
-            System.out.println("Account ID: ");
+            System.out.println("Сметка ID: ");
             var answer = scanner.nextLine();
             Integer accountId = 0;
             try {
                 accountId = Integer.parseInt(answer);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid ID format - numbers only.");
+                System.out.println("Невалиден формат на ID. Опитайте с цифри.");
             }
             try {
                 account = accountService.getById(accountId);
             } catch (NullPointerException e) {
-                System.out.println("Account with ID = " + accountId + " does not exist.");
+                System.out.println("Сметка с ID = " + accountId + " не съществува.");
             }
             Collection<Account> allAccounts = accountService.getClientAccounts(client);
             boolean isAccountClients = false;
@@ -61,25 +61,25 @@ public class MakeTransactionDialog implements EntityDialog<Transaction> {
                 }
             }
             if(!isAccountClients){
-                System.out.println("Account with ID = " + accountId + " is not your. \nPlease select from your own accounts.");
+                System.out.println("Сметка с ID = " + accountId + " не е ваша. \nМоля изберете сметка, която ви принадлежи.");
             }
         }
         while (transaction.getAmount() == 0) {
-            System.out.println("Amount: ");
+            System.out.println("Сума: ");
             var answer = scanner.nextLine();
             double amount = 0;
             try {
                 amount = Double.parseDouble(answer);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid money format - (Example:'50.99').");
+                System.out.println("Невалиден формат на пари - (Пример за валиден формат:'50.99').");
             }
             transaction.setAmount(amount);
 
         }
         while (transaction.getType() == null) {
-            System.out.println("Transaction type: ");
-            System.out.println("1.Debit");
-            System.out.println("2.Credit");
+            System.out.println("Тип на транзакцията: ");
+            System.out.println("1.Дебит");
+            System.out.println("2.Кредит");
             var answer = scanner.nextLine();
             double currentBalance = 0;
             if (answer.equals("1")) {
@@ -87,7 +87,7 @@ public class MakeTransactionDialog implements EntityDialog<Transaction> {
                 try {
                     currentBalance = account.getBalance();
                 } catch (NullPointerException e) {
-                    System.out.println("Current Account has no balance!");
+                    System.out.println("В момента нямате наличен баланс по сметката!");
                 }
                 account.setBalance(currentBalance + transaction.getAmount());
             } else if (answer.equals("2")) {
@@ -95,11 +95,11 @@ public class MakeTransactionDialog implements EntityDialog<Transaction> {
                 try {
                     currentBalance = account.getBalance();
                 } catch (NullPointerException e) {
-                    System.out.println("Current Account has no balance!");
+                    System.out.println("В момента нямате наличен баланс по сметката!");
                 }
                 account.setBalance(currentBalance - transaction.getAmount());
             }else{
-                System.out.println("Please choose '1' or '2' from the menu.");
+                System.out.println("Моля изберете 1 или 2 от менюто.");
             }
         }
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());

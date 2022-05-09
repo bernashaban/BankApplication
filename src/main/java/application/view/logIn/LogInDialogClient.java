@@ -19,28 +19,28 @@ public class LogInDialogClient implements EntityDialog<Client> {
     public Client input() {
         Client client = null;
         while (client == null) {
-            System.out.println("Username: ");
+            System.out.println("Потребителско име: ");
             var answer = scanner.nextLine();
             try {
                 client = clientService.findClientByUsername(answer);
             } catch (NullPointerException e) {
-                System.out.println("Client does not exist.");
+                System.out.println("Клиентът не съществува.");
             }
             if (client != null) {
-                System.out.println("Password:");
+                System.out.println("Парола:");
                 var pass = scanner.nextLine();
                 while (true) {
                     if (pass.equals(client.getPassword())) {
                         return client;
                     }
-                    System.out.println("Error: Wrong password. Try again.");
+                    System.out.println("Грешна парола. Опитайте отново");
                     pass = scanner.nextLine();
                 }
             } else {
-                System.out.println("Error: User with username: '" + answer + "' does not exist.");
+                System.out.println("Грешка: Клиент с потребителско име '" + answer + "' не съществува.");
             }
         }
-        System.out.println("The login failed.");
+        System.out.println("Неуспешен вход.");
         return null;
     }
 

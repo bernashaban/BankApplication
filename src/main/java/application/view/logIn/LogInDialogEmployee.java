@@ -21,28 +21,28 @@ public class LogInDialogEmployee implements EntityDialog<Employee> {
     public Employee input() throws NonExistingEntityException {
         Employee employee = null;
         while (employee == null) {
-            System.out.println("Username: ");
+            System.out.println("Потребителско име: ");
             var answer = scanner.nextLine();
             try {
                 employee = employeeService.findEmployeeByUsername(answer);
             } catch (NullPointerException e) {
-                System.out.println("Employee does not exist.");
+                System.out.println("Служителят не съществува.");
             }
             if (employee != null) {
-                System.out.println("Password:");
+                System.out.println("Парола:");
                 var pass = scanner.nextLine();
                 while (true) {
                     if (pass.equals(employee.getPassword())) {
                         return employee;
                     }
-                    System.out.println("Error: Wrong password. Try again.");
+                    System.out.println("Грешна парола. Опитайте отново.");
                     pass = scanner.nextLine();
                 }
             } else {
-                System.out.println("Error: User with username: '" + answer + "' does not exist.");
+                System.out.println("Грешка: Служител с потребителско име: '" + answer + "' не съществува.");
             }
         }
-        System.out.println("The login failed.");
+        System.out.println("Неуспешен вход.");
         return null;
     }
 }

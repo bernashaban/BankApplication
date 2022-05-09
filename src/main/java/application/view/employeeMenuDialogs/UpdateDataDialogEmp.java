@@ -1,10 +1,6 @@
 package application.view.employeeMenuDialogs;
 
-import application.controller.EmployeeController;
-import application.model.Client;
 import application.model.Employee;
-import application.model.Position;
-import application.service.ClientService;
 import application.service.EmployeeService;
 import application.view.EntityDialog;
 
@@ -25,40 +21,40 @@ public class UpdateDataDialogEmp implements EntityDialog<Employee> {
     public Employee input() {
         employee.setUsername(null);
         while (employee.getUsername() == null) {
-            System.out.println("Username: ");
+            System.out.println("Потребителско име: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Username should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Потребителското име трябва да бъде между 2 и 15 символа.\"");
             } else {
                 employee.setUsername(answer);
             }
         }
         employee.setPassword(null);
         while (employee.getPassword() == null) {
-            System.out.println("Password: ");
+            System.out.println("Парола: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Password should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Паролата трябва да бъде между 2 и 15 символа.\"");
             } else {
                 employee.setPassword(answer);
             }
         }
         employee.setName(null);
         while (employee.getName() == null) {
-            System.out.println("Name: ");
+            System.out.println("Име и фамилия: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Name should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Името и фамилията трябва да е между 2 и 20 символа.\"");
             } else {
                 employee.setName(answer);
             }
         }
         employee.setPhone(null);
         while (employee.getPhone() == null) {
-            System.out.println("Phone: ");
+            System.out.println("Телефон: ");
             var answer = scanner.nextLine();
             if (answer.length() != 10) {
-                System.out.println("Error: Phone should be 10 characters long.");
+                System.out.println("Грешка: Телефона трябва да бъде точно 10 символа\"");
             } else {
                 employee.setPhone(answer);
             }

@@ -21,50 +21,50 @@ public class UpdateDataDialog implements EntityDialog<Client> {
     public Client input() {
         client.setUsername(null);
         while (client.getUsername() == null) {
-            System.out.println("Username: ");
+            System.out.println("Потребителско име: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Username should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Потребителското име трябва да бъде между 2 и 15 символа.");
             } else {
                 client.setUsername(answer);
             }
         }
         client.setPassword(null);
         while (client.getPassword() == null) {
-            System.out.println("Password: ");
+            System.out.println("Парола: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Password should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Паролата трябва да бъде между 2 и 15 символа.\"");
             } else {
                 client.setPassword(answer);
             }
         }
         client.setName(null);
         while (client.getName() == null) {
-            System.out.println("Name: ");
+            System.out.println("Име и фамилия: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Name should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Името и фамилията трябва да е между 2 и 20 символа.\"");
             } else {
                 client.setName(answer);
             }
         }
         client.setAddress(null);
         while (client.getAddress() == null) {
-            System.out.println("Address: ");
+            System.out.println("Адрес: ");
             var answer = scanner.nextLine();
             if (answer.length() < 2 || answer.length() > 15) {
-                System.out.println("Error: Address should be between 2 and 15 characters long.");
+                System.out.println("Грешка: Адреса трябва да бъде между 2 и 15 символа.\"");
             } else {
                 client.setAddress(answer);
             }
         }
         client.setPhone(null);
         while (client.getPhone() == null) {
-            System.out.println("Phone: ");
+            System.out.println("Телефон: ");
             var answer = scanner.nextLine();
             if (answer.length() != 10) {
-                System.out.println("Error: Phone should be 10 characters long.");
+                System.out.println("Грешка: Телефона трябва да бъде точно 10 символа\"");
             } else {
                 client.setPhone(answer);
             }

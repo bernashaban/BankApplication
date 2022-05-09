@@ -26,14 +26,14 @@ public class MainController {
     }
 
     public void init() {
-        var menu = new Menu("Main Menu", List.of(
-                new Menu.Option("Log in", () -> {
-                    LogInController logInController = new LogInController(clientService, employeeService, accountService, transactionService, currencyService, transTypeService);
+        var menu = new Menu("Главно меню", List.of(
+                new Menu.Option("Вход", () -> {
+                    LogInController logInController = new LogInController(clientService, employeeService, accountService, transactionService,currencyService, transTypeService, positionService);
                     logInController.init();
                     return ("");
                 }),
-                new Menu.Option("Register", () -> {
-                    RegisterController registerController = new RegisterController(clientService, employeeService);
+                new Menu.Option("Регистрация", () -> {
+                    RegisterController registerController = new RegisterController(clientService, employeeService, positionService);
                     registerController.init();
                     return ("");
                 })

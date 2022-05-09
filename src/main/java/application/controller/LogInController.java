@@ -29,26 +29,26 @@ public class LogInController {
     }
 
     public void init() {
-        var menu = new Menu("Log in", List.of(
-                new Menu.Option("Log in for Client", () -> {
+        var menu = new Menu("Вход", List.of(
+                new Menu.Option("Вход като клиент", () -> {
                     var user = new LogInDialogClient(clientService).input();
                     if (user == null) {
-                        System.out.println("Login failed. Try again.");
+                        System.out.println("Неуспешен вход. Опитайте пак.");
                     } else {
                         ClientController clientController = new ClientController(user, clientService, accountService, transactionService, currencyService,employeeService, transTypeService);
                         clientController.init();
                     }
-                    return "Logged in successfully.";
+                    return "Успешен вход.";
                 }),
-                new Menu.Option("Log in for Employee", () -> {
+                new Menu.Option("Вход като служител", () -> {
                     var user = new LogInDialogEmployee(employeeService).input();
                     if (user == null) {
-                        System.out.println("Login failed. Try again.");
+                        System.out.println("Неуспешен вход. Опитайте пак.");
                     } else {
                         EmployeeController employeeController = new EmployeeController(user, employeeService, clientService, accountService,transactionService, currencyService, transTypeService, positionService);
                         employeeController.init();
                     }
-                    return "Logged in successfully.";
+                    return "Успешен вход.";
                 })
         ));
         menu.show();

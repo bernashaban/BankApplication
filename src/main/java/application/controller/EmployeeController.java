@@ -32,66 +32,50 @@ public class EmployeeController {
     }
 
     public void init() {
-        var menu = new Menu("Employee Menu", List.of(
-                new Menu.Option("See personal data", () -> {
+        var menu = new Menu("Служител", List.of(
+                new Menu.Option("Лична информация", () -> {
                     System.out.println(employee);
                     return "";
                 }),
-                new Menu.Option("Edit personal data", () -> {
+                new Menu.Option("Редактирай лична информация", () -> {
                    var updating = new UpdateDataDialogEmp(employeeService, employee).input();
                     employeeService.update(updating);
-                    return "Personal data updated successfully.";
+                    return "";
                 }),
-                new Menu.Option("Manage accounts", () -> {
+                new Menu.Option("Управление на сметки", () -> {
                     AccountController accountController = new AccountController(accountService);
                     accountController.init();
                     return "";
                 }),
-                new Menu.Option("Manage transactions", () -> {
+                new Menu.Option("Управление на транзакции", () -> {
                     TransactionController transactionController = new TransactionController(transactionService);
                     transactionController.init();
                     return "";
                 }),
-                new Menu.Option("Manage currency types", () -> {
+                new Menu.Option("Управление на валути", () -> {
                     CurrencyController currencyController = new CurrencyController(currencyService);
                     currencyController.init();
                     return "";
                 }),
-                new Menu.Option("Manage transaction types", () -> {
+                new Menu.Option("Управление на типове транзакции", () -> {
                     TransactionTypeController transactionTypeController = new TransactionTypeController(transTypeService);
                     transactionTypeController.init();
                     return "";
                 }),
-                new Menu.Option("Manage employees", () -> {
+                new Menu.Option("Управление на служители", () -> {
                     EmpEmployeeController employeeController = new EmpEmployeeController();
                     employeeController.init();
                     return "";
                 }),
-                new Menu.Option("Manage clients", () -> {
+                new Menu.Option("Управление на клиенти", () -> {
                     EmpClientController clientController = new EmpClientController();
                     clientController.init();
                     return "";
                 }),
-                new Menu.Option("Manage positions", () -> {
+                new Menu.Option("Управление на позиции", () -> {
                     PositionController positionController = new PositionController(positionService);
                     positionController.init();
                     return "";
-                }),
-                new Menu.Option("Delete profile", () -> {
-                    System.out.println("You are about to delete your account. Are you sure?");
-                    System.out.println("(Yes/No):");
-                    var answer = scanner.nextLine();
-                    String lowerCaseAns = answer.toLowerCase();
-                    if (lowerCaseAns.equals("yes")) {
-                        employeeService.delete(employee.getId());
-                        return "Deleted successfully.";
-                    } else if (answer.equals("no")) {
-                        System.out.println("Delete canceled.");
-                        return "Delete canceled.";
-                    } else {
-                        System.out.println("Error: Invalid answer.");
-                        return "Error: Invalid answer.";
-                    }
                 })
         ));
         menu.show();

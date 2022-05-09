@@ -29,59 +29,59 @@ public class ClientController {
     }
 
     public void init() {
-        var menu = new Menu("Client Menu", List.of(
-                new Menu.Option("See personal data", () -> {
+        var menu = new Menu("Клиент", List.of(
+                new Menu.Option("Лична информация", () -> {
                     System.out.println(client);
                     return "";
                 }),
-                new Menu.Option("Edit personal data", () -> {
+                new Menu.Option("Редактирай лична информация", () -> {
                     var updating = new UpdateDataDialog(clientService, client).input();
                     clientService.update(updating);
-                    return "Personal data updated successfully.";
+                    return "";
                 }),
-                new Menu.Option("See all accounts", () -> {
+                new Menu.Option("Виж всички сметки", () -> {
                     //трябва да се изведат всички сметки на текущия клиент
                     var accounts = accountService.getClientAccounts(client);
                     accounts.forEach(System.out::println);
                     return "";
                 }),
-                new Menu.Option("Search accounts by currency", () -> {
+                new Menu.Option("Търсене на сметка по валута", () -> {
                     //клиента избира валута и се извеждат всички негови сметки със тази валута
                     var currency = new SearchCurrencyDialog(currencyService).input();
                     var accounts = accountService.getClientAccountsByCurrency(client, currency);
                     accounts.forEach(System.out::println);
                     return "";
                 }),
-                new Menu.Option("Make a transaction", () -> {
+                new Menu.Option("Направи транзакция", () -> {
                     var transaction = new MakeTransactionDialog(clientService, client, accountService, employeeService, transTypeService).input();
                     transactionService.add(transaction);
                     return "";
                 }),
-                new Menu.Option("See all transactions ordered by date", () -> {
+                new Menu.Option("Виж всички транзакции подредени по дата", () -> {
                     //извеждат се всички транзакции на клиента подредени по дата
                     var allTransactions = new SearchAllTransactions(client, transactionService).input();
                     if(allTransactions==null||allTransactions.isEmpty()){
-                        System.out.println("No debit transactions founded.");
+                        System.out.println("Не са намерени транзакции.");
                     }else{
                         allTransactions.forEach(System.out::println);
                     }
                     return "";
                 }),
-                new Menu.Option("See debit transactions", () -> {
+                new Menu.Option("Виж всички дебитни транзакции", () -> {
                     //извеждат се всички транзакции на клиента които да дебитни
                     var debitTrans = new SearchAllDebitTransactions(client, transactionService).input();
                     if(debitTrans==null||debitTrans.isEmpty()){
-                        System.out.println("No debit transactions founded.");
+                        System.out.println("Не са намерени дебитни транзакции.");
                     }else{
                         debitTrans.forEach(System.out::println);
                     }
                     return "";
                 }),
-                new Menu.Option("See credit transactions", () -> {
+                new Menu.Option("Виж всички кредитни транзакции", () -> {
                     //извеждат се всички транзакции на клиента които са кредитни
                     var creditTrans = new SearchAllCreditTransactions(client, transactionService).input();
                     if(creditTrans==null||creditTrans.isEmpty()){
-                        System.out.println("No debit transactions founded.");
+                        System.out.println("Не са намерени кредитни транзакции.");
                     }else{
                         creditTrans.forEach(System.out::println);
                     }
