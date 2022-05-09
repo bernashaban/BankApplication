@@ -27,6 +27,10 @@ public class Employee implements Identifiable<Integer> {
         this.position = position;
     }
 
+    public Employee() {
+
+    }
+
     public String getUsername() {
         return username;
     }

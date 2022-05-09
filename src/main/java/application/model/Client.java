@@ -30,6 +30,10 @@ public class Client  implements Identifiable<Integer> {
         this.phone = phone;
     }
 
+    public Client() {
+
+    }
+
     @Override
     public Integer getId() {
         return id;
