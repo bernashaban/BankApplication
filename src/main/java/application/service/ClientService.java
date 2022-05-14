@@ -3,7 +3,9 @@ package application.service;
 import application.dao.impl.ClientRepository;
 import application.model.Client;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class ClientService implements Service<Client> {
     private final ClientRepository clientRepository;
@@ -43,5 +45,24 @@ public class ClientService implements Service<Client> {
             return client;
         }
         return null;
+    }
+    public Client findClientByEGN(String egn){
+        Collection<Client> allClient = clientRepository.findAll();
+        for (Client client : allClient) {
+            if(client.getEgn().equals(egn)){
+                return client;
+            }
+        }
+        return null;
+    }
+    public List<Client> findClientByName(String name){
+        List<Client> clientsByName = new ArrayList<>();
+        Collection<Client> allClient = clientRepository.findAll();
+        for (Client client : allClient) {
+            if(client.getName().contains(name)){
+                clientsByName.add(client);
+            }
+        }
+        return clientsByName;
     }
 }
