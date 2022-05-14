@@ -43,7 +43,7 @@ public class EmployeeController {
                     return "";
                 }),
                 new Menu.Option("Управление на сметки", () -> {
-                    AccountController accountController = new AccountController(accountService);
+                    AccountController accountController = new AccountController(accountService, clientService, currencyService);
                     accountController.init();
                     return "";
                 }),
