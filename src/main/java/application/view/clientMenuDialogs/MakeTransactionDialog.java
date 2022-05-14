@@ -17,17 +17,13 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class MakeTransactionDialog implements EntityDialog<Transaction> {
-
-
     public static Scanner scanner = new Scanner(System.in);
-    private ClientService clientService;
     private Client client;
     private AccountService accountService;
     private EmployeeService employeeService;
     private TransTypeService transTypeService;
 
-    public MakeTransactionDialog(ClientService clientService, Client client, AccountService accountService, EmployeeService employeeService, TransTypeService transTypeService) {
-        this.clientService = clientService;
+    public MakeTransactionDialog(Client client, AccountService accountService, EmployeeService employeeService, TransTypeService transTypeService) {
         this.client = client;
         this.accountService = accountService;
         this.employeeService = employeeService;
