@@ -53,16 +53,16 @@ public class ClientController {
                     return "";
                 }),
                 new Menu.Option("Направи транзакция", () -> {
-                    var transaction = new MakeTransactionDialog(clientService, client, accountService, employeeService, transTypeService).input();
+                    var transaction = new MakeTransactionDialog(client, accountService, employeeService, transTypeService).input();
                     transactionService.add(transaction);
                     return "";
                 }),
                 new Menu.Option("Виж всички транзакции подредени по дата", () -> {
                     //извеждат се всички транзакции на клиента подредени по дата
                     var allTransactions = new SearchAllTransactions(client, transactionService).input();
-                    if(allTransactions==null||allTransactions.isEmpty()){
+                    if (allTransactions == null || allTransactions.isEmpty()) {
                         System.out.println("Не са намерени транзакции.");
-                    }else{
+                    } else {
                         allTransactions.forEach(System.out::println);
                     }
                     return "";
@@ -70,9 +70,9 @@ public class ClientController {
                 new Menu.Option("Виж всички дебитни транзакции", () -> {
                     //извеждат се всички транзакции на клиента които да дебитни
                     var debitTrans = new SearchAllDebitTransactions(client, transactionService).input();
-                    if(debitTrans==null||debitTrans.isEmpty()){
+                    if (debitTrans == null || debitTrans.isEmpty()) {
                         System.out.println("Не са намерени дебитни транзакции.");
-                    }else{
+                    } else {
                         debitTrans.forEach(System.out::println);
                     }
                     return "";
@@ -80,9 +80,9 @@ public class ClientController {
                 new Menu.Option("Виж всички кредитни транзакции", () -> {
                     //извеждат се всички транзакции на клиента които са кредитни
                     var creditTrans = new SearchAllCreditTransactions(client, transactionService).input();
-                    if(creditTrans==null||creditTrans.isEmpty()){
+                    if (creditTrans == null || creditTrans.isEmpty()) {
                         System.out.println("Не са намерени кредитни транзакции.");
-                    }else{
+                    } else {
                         creditTrans.forEach(System.out::println);
                     }
                     return "";
