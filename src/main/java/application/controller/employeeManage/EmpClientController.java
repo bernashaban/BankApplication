@@ -3,7 +3,7 @@ package application.controller.employeeManage;
 import application.service.ClientService;
 import application.view.Menu;
 import application.view.client.DeleteClientDialog;
-import application.view.client.SearchClientById;
+import application.view.client.SearchClientByIdDialog;
 import application.view.client.UpdateClientDialog;
 import application.view.register.RegisterDialogClient;
 
@@ -35,7 +35,7 @@ public class EmpClientController {
                     return "Клиентът е актуализиран успшено!";
                 }),
                 new Menu.Option("Търси клиент по ID", () -> {
-                    var client = new SearchClientById(clientService).input();
+                    var client = new SearchClientByIdDialog(clientService).input();
                     System.out.println(client);
                     return "";
                 }),
