@@ -38,7 +38,7 @@ public class EmployeeController {
                     return "";
                 }),
                 new Menu.Option("Редактирай лична информация", () -> {
-                   var updating = new UpdateDataDialogEmp(employeeService, employee).input();
+                    var updating = new UpdateDataDialogEmp(employeeService, employee).input();
                     employeeService.update(updating);
                     return "";
                 }),
@@ -48,7 +48,7 @@ public class EmployeeController {
                     return "";
                 }),
                 new Menu.Option("Управление на транзакции", () -> {
-                    TransactionController transactionController = new TransactionController(transactionService);
+                    TransactionController transactionController = new TransactionController(transactionService, accountService, transTypeService, employeeService);
                     transactionController.init();
                     return "";
                 }),
@@ -63,7 +63,7 @@ public class EmployeeController {
                     return "";
                 }),
                 new Menu.Option("Управление на служители", () -> {
-                    EmpEmployeeController employeeController = new EmpEmployeeController();
+                    EmpEmployeeController employeeController = new EmpEmployeeController(employeeService);
                     employeeController.init();
                     return "";
                 }),
