@@ -2,23 +2,16 @@ package application.view.register;
 
 import application.exception.NonExistingEntityException;
 import application.model.Client;
-import application.service.ClientService;
 import application.view.EntityDialog;
 
 import java.util.Scanner;
 
 public class RegisterDialogClient implements EntityDialog<Client> {
     public static Scanner scanner = new Scanner(System.in);
-    private ClientService clientService;
-
-    public RegisterDialogClient(ClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @Override
     public Client input() throws NonExistingEntityException {
-        Client client= new Client();
-
+        Client client = new Client();
         while (client.getUsername() == null) {
             System.out.println("Потребителско име: ");
             var answer = scanner.nextLine();
@@ -46,7 +39,7 @@ public class RegisterDialogClient implements EntityDialog<Client> {
                 client.setName(answer);
             }
         }
-        while (client.getEgn()== null) {
+        while (client.getEgn() == null) {
             System.out.println("ЕГН: ");
             var answer = scanner.nextLine();
             if (answer.length() != 10) {
@@ -64,7 +57,7 @@ public class RegisterDialogClient implements EntityDialog<Client> {
                 client.setAddress(answer);
             }
         }
-        while (client.getPhone()== null) {
+        while (client.getPhone() == null) {
             System.out.println("Телефон: ");
             var answer = scanner.nextLine();
             if (answer.length() != 10) {

@@ -68,7 +68,7 @@ public class EmployeeController {
                     return "";
                 }),
                 new Menu.Option("Управление на клиенти", () -> {
-                    EmpClientController clientController = new EmpClientController();
+                    EmpClientController clientController = new EmpClientController(clientService);
                     clientController.init();
                     return "";
                 }),
