@@ -20,7 +20,7 @@ public class EmployeeRepository implements Repository<Integer, Employee> {
     public static final String SELECT_EMPLOYEE_BY_ID = "select * from `employee` where idemployee = ?;";
     public static final String UPDATE_EMPLOYEE_BY_ID = "update `employee` set `employee_username` = ?,`employee_password`=?, `employee_name` = ?, `employee_phone` = ?, `position_id` = ? where idemployee = ?;";
     public static final String DELETE_EMPLOYEE_BY_ID = "delete from `employee` where idemployee = ?;";
-    public static final String SELECT_EMPLOYEE_BY_USERNAME = "select * from `employee` where username = ?;";
+    public static final String SELECT_EMPLOYEE_BY_USERNAME = "select * from `employee` where employee_username = ?;";
     private Connection connection;
     private PositionService positionService;
 
